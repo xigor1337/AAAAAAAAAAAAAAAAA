@@ -1,0 +1,54 @@
+def translationIn(input):
+    result = ''
+    for i in input:
+        if i == " ":
+            result += " "
+        elif i == "," or i == "." or i == "-" or i == "/" or i == ";" or i == "?":
+            order = ord(i)
+            order = "a" * order + ":"
+            result += order
+        elif i == "!":
+            order = ord(i) + 4
+            order = "a" * order + ":"
+            result += order
+        elif i.isnumeric():
+            order = ord(i) - 21
+            order = "a" * order + ":"
+            result += order
+        elif i.isupper():
+            order = ord(i) - 64
+            order = "A" * order + ":"
+            result += order
+        else:
+            order = ord(i) - 96
+            order = "a" * order + ":"
+            result += order
+    return result
+
+def translationOut(input):
+    result = ''
+    sum = 0
+    for i in input:
+        if i == "a" or i == "A":
+            sum += 1
+        elif i == " ":
+            result += " "
+        elif i == ":":
+            if last == "a":
+                if sum == 44 or sum == 45 or sum == 46 or sum == 47 or sum == 59 or sum == 63:
+                    result += chr(sum)
+                    sum = 0
+                elif sum == 37:
+                    result += chr(sum - 4)
+                    sum = 0
+                elif 27 <= sum <= 36:
+                    result += chr(sum + 21)
+                    sum = 0
+                else:
+                    result += chr(sum + 96)
+                    sum = 0
+            if last == "A":
+                result += chr(sum + 64)
+                sum = 0
+        last = i
+    return result
